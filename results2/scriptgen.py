@@ -27,3 +27,5 @@ def protein(filename):
 if __name__ == "__main__":
     nucleotide("genresults.txt")
     protein("genresults2.txt")
+    
+    raxmlHPC-PTHREADS-AVX -f a -x 54321 -N 100 -T 4 -p 12345 -m PROTCATBLOSUM62 -s input -n output
