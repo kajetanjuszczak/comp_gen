@@ -62,20 +62,25 @@ def orth():
         if len(returndict[entry]) == 13 and n < 10:
             list_of_10.append(returndict[entry])
         n += 1
-    print(len(list_of_10))
     return list_of_10
+
 def clusterfastanames():
+    """
+    creates 10 files each containing one 
+    """
     n = 0
     listof10 = orth()
     for line in listof10:
         w = open ("cluster_{}".format(n), "w")
         with open("allfasta.fasta") as f:
-            for line2 in f:
-                if line[0] == line2.strip("\n") or line[2] == line2.strip("\n") or line[6] == line2.strip("\n") or line[10] == line2.strip("\n"):
-                    w.write(line2)
-# =============================================================================
-#                     for i in
-# =============================================================================
+            file = f.readlines()
+            for line2 in range(len(file)):
+                if line[0] == file[line2].strip("\n") or line[2] == file[line2].strip("\n") or line[6] == file[line2].strip("\n") or line[10] == file[line2].strip("\n"):
+                    w.write(file[line2])
+                    for i in range(line2 + 1, len(file)):
+                        if file[i].startswith(">"):
+                            break
+                        w.write((file[i]))
         n += 1
         w.close()
 if __name__ == "__main__":
