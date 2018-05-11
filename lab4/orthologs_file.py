@@ -83,6 +83,7 @@ def clusterfastanames():
                         w.write((file[i]))
         n += 1
         w.close()
+
 if __name__ == "__main__":
-    print(clusterfastanames())
-    #print(orth())
+    #print(clusterfastanames())
+    print(orth())
