@@ -86,19 +86,6 @@ def clusterfastanames():
         n += 1
         w.close()
 
-belvu -T u -o tree kcluster_0 >tree0
-belvu -T u -o tree kcluster_1 >tree1
-belvu -T u -o tree kcluster_2 >tree2
-belvu -T u -o tree kcluster_3 >tree3
-belvu -T u -o tree kcluster_4 >tree4
-belvu -T u -o tree kcluster_5 >tree5
-belvu -T u -o tree kcluster_6 >tree6
-belvu -T u -o tree kcluster_7 >tree7
-belvu -T u -o tree kcluster_8 >tree8
-belvu -T u -o tree kcluster_9 >tree9
-
-
-
 
 if __name__ == "__main__":
     print(clusterfastanames())
