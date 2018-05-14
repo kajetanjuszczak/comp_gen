@@ -20,4 +20,3 @@ for aSingleBlastRecord in listOfBlastRecords:
         query = aSingleBlastRecord.query
         print (">{} {} >{} {}".format(query, alignment.hsps[0].query, title, alignment.hsps[0].sbjct))
         break
-

@@ -76,7 +76,7 @@ def clusterfastanames():
             file = f.readlines()
             for line2 in range(len(file)):
                 if line[0] == file[line2].strip("\n") or line[2] == file[line2].strip("\n") or line[6] == file[line2].strip("\n") or line[10] == file[line2].strip("\n"):
-                    w.write(file[line2])
+                    w.write(">" + file[line2][3:5] + "\n")
                     for i in range(line2 + 1, len(file)):
                         if file[i].startswith(">"):
                             break
@@ -85,5 +85,5 @@ def clusterfastanames():
         w.close()
 
 if __name__ == "__main__":
-    #print(clusterfastanames())
-    print(orth())
+    print(clusterfastanames())
+    #print(orth())
