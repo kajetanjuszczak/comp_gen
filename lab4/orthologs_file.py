@@ -30,17 +30,17 @@ def parser():
     returndict = {}
     for entry in set_of_orfs:
         if entry in dict09:
-            returndict[entry] = dict09[entry]
+            returndict[entry] = dict09[entry][0] + " " + dict09[entry][2] + " "
         if entry in dict20:
             try:
-                returndict[entry] += dict20[entry]
+                returndict[entry] += dict20[entry][2] + " "
             except KeyError:
-                returndict[entry] = dict20[entry]
+                returndict[entry] = dict20[entry][0] + " " + dict20[entry][2] + " "
         if entry in dict51:
             try:
-                returndict[entry] += dict51[entry]
+                returndict[entry] += dict51[entry][2] + " "
             except KeyError:
-                returndict[entry] = dict51[entry]
+                returndict[entry] = dict51[entry][0] + " " + dict51[entry][2] + " "
         returndict[entry] += "\n"
     return returndict
 
@@ -48,7 +48,7 @@ def write_orth():
     returndict = parser()
     with open("orth_db", "w") as w:
         for entry in returndict:
-            w.write(" ".join(returndict[entry]))
+            w.write(returndict[entry])
             
 def orth():
     """
@@ -59,9 +59,11 @@ def orth():
     returndict = parser()
     for entry in returndict:
         ### 13 because for things to work properly needed to add \n ###
-        if len(returndict[entry]) == 13 and n < 10:
-            list_of_10.append(returndict[entry])
-        n += 1
+        temp = []
+        temp = returndict[entry].split(" ")
+        if len(temp) == 5 and n < 10:
+            list_of_10.append(temp)
+            n += 1
     return list_of_10
 
 def clusterfastanames():
@@ -75,7 +77,7 @@ def clusterfastanames():
         with open("allfasta.fasta") as f:
             file = f.readlines()
             for line2 in range(len(file)):
-                if line[0] == file[line2].strip("\n") or line[2] == file[line2].strip("\n") or line[6] == file[line2].strip("\n") or line[10] == file[line2].strip("\n"):
+                if line[0] == file[line2].strip("\n") or line[1] == file[line2].strip("\n") or line[2] == file[line2].strip("\n") or line[3] == file[line2].strip("\n"):
                     w.write(">" + file[line2][3:5] + "\n")
                     for i in range(line2 + 1, len(file)):
                         if file[i].startswith(">"):
