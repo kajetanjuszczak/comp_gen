@@ -9,7 +9,6 @@ list09 = []
 list20 = []
 list51 = []
 for n in range(10):
-    print(n)
     with open("kcluster_{}".format(n)) as f:
         file = f.readlines()
         for line in range(len(file)):
