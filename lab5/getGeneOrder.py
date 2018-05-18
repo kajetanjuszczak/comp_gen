@@ -43,4 +43,8 @@ for aLine in lines:
 # put together
 for aGene in geneOrderList:
     if partOfCluster.has_key (aGene):
-        print partOfCluster [aGene]
+        print partOfCluster [aGene],
+
+#==============================================================================
+# /afs/pdc.kth.se/misc/pdc/volumes/sbc/prj.sbc.dmessina.5/Comparative_Genomics/programs/grimm -f grimmin -o distance.grim -C -m
+#==============================================================================
