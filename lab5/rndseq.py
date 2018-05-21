@@ -22,14 +22,15 @@ def dictionary():
     return dictionary
 def longrandomseq():
     dictionary1 = dictionary()
-    with open("longrandomseqs", "w") as w:
+    with open("longrandomseqsA", "w") as w:
         prot_list = ["03", "09", "20", "51"]
         for prot_name in prot_list:
-            with open("out_{}".format(prot_name)) as f:
+            with open("out_{}b".format(prot_name)) as f:
                 templist = []
                 for line in f:
                     templist.append(dictionary1[int(line)])
                 w.write(">{}\n{}\n".format(prot_name, "".join(templist)))
                 
 if __name__ == "__main__":
+    print(dictionary())
     print(longrandomseq())
