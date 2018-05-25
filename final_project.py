@@ -25,20 +25,16 @@ def complement(filename):
     seq = tostring(filename).replace("G", "c").replace("C", "g").replace("A", "t").replace("T", "a").upper()
     seq = seq[::-1]
     return seq
-def orfs(filename): 
+def orfsforward(filename): 
     seq = tostring(filename)
-    comp = complement(filename)
-    list_of_treenucl = []
+    list_of_treenuclf = []
     for i in range(3):
         forward = []
-        reverse = []
         for j in range(i ,len(seq), 3):
             forward.append(seq[j:j+3])
-            reverse.append(comp[j:j+3])
-        list_of_treenucl.append(forward)
-        list_of_treenucl.append(reverse)
-    for l in list_of_treenucl:
-        temp = []
+        list_of_treenuclf.append(forward)
+    orflist = []
+    for l in list_of_treenuclf:
         for trin in range(len(l)):
             if l[trin] == "ATG":
                 orf = []
@@ -46,21 +42,46 @@ def orfs(filename):
                     orf.append(l[i])
                     if l[i] == "TGA" or l[i] == "TAA" or l[i] == "TGA":
                         break
-                temp.append(orf)
-    orf_list = []
-    for i in temp:
-        if len(i) > 100:
-            orf_list.append(i)
-    print(len(orf_list))
-            
+                orflist.append(orf)
+    return orflist
+def orfsreverse(filename): 
+    comp = complement(filename)
+    list_of_treenuclr = []
+    for i in range(3):
+        reverse = []
+        for j in range(i ,len(comp), 3):
+            reverse.append(comp[j:j+3])
+        list_of_treenuclr.append(reverse)
+    orflist = []
+    for l in list_of_treenuclr:
+        for trin in range(len(l)):
+            if l[trin] == "ATG":
+                orf = []
+                for i in range(trin, len(l)):
+                    orf.append(l[i])
+                    if l[i] == "TGA" or l[i] == "TAA" or l[i] == "TGA":
+                        break
+                orflist.append(orf)
+    return orflist
+def writeintofile(filename):
+    forwardorfs = orfsforward(filename)
+    reverseorfs = orfsreverse(filename)  
+    with open("writefile", "w") as w:
+        count = 0
+        for i in forwardorfs:
+            if len(i) > 100:
+                w.write(">orf_{} \n{}\n".format(count, "".join(i)))
+                count+=1
+        count = 0
+        for i in reverseorfs:
+            if len(i) > 100:
+                w.write(">orf_{}_rev \n{}\n".format(count, "".join(i)))
+                count+=1
+
+def distancematrixtool(filename):
+    pass
+    
             
         
 if __name__ == "__main__":
-#==============================================================================
-#     GC("./genomes/03.fa.txt")
-#     dinucleotides("./genomes/03.fa.txt")
-#==============================================================================
-#==============================================================================
-#     print(complement("./genomes/03.fa.txt"))
-#==============================================================================
-    print(orfs("./genomes/03.fa.txt"))
+    print(writeintofile("./genomes/03.fa.txt"))
