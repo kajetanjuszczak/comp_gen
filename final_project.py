@@ -1,5 +1,6 @@
 import numpy as np
 import math as math
+import Bio
 
 def tostring(filename):
     with open(filename, "r") as f:
@@ -23,8 +24,20 @@ def dinucleotides(filename):
         #print("{} content is {}".format(i , seq.count(i)/(len(seq) - 1)))
         listoffreq.append((seq.count(i)/(len(seq) - 1 - 2*seq.count("N"))*100))
     return listoffreq
+def diaminoacids(filename):
+    with open(writefile, "r") as f:
+        for lines in 
         
-        
+def dinucleotides1(filename):
+    list1 = dinucleotides(filename)
+    print("AG {} AA {} AC {} AT {} CG {} CA {} CC {} CT {} GG {} GA {} GC {} GT {} TG {} TA {} TC {} TT {} \n".format(list1[0],list1[1],list1[2],list1[3],list1[4],list1[5],list1[6],list1[7],list1[8],list1[9],list1[10],list1[11],list1[12],list1[13],list1[14],list1[15]))
+def nucleotide(filename):
+    seq = tostring(filename)
+    T = seq.count("T") / len(seq)
+    C = seq.count("C") / len(seq)
+    G = seq.count("G") / len(seq)
+    A = seq.count("A") / len(seq)
+    print("T{}C{}G{}A{}".format(T,C,G,A))
 def complement(filename):
     seq = tostring(filename).replace("G", "c").replace("C", "g").replace("A", "t").replace("T", "a").upper()
     seq = seq[::-1]
@@ -86,6 +99,7 @@ def writeintofile(filename):
             if len(i) > 100:
                 w.write(">orf_{}_rev \n{}\n".format(count, "".join(i)))
                 count+=1
+        
 def vectors(list1, list2):
     list_of_substracted = []
     for index in range(len(list1)):
@@ -103,10 +117,17 @@ def distancematrixtool(genome1, genome2, genome3, genome4, genome5):
             
         
 if __name__ == "__main__":
+    dinucleotides1("./genomes/03.fa.txt")
+    dinucleotides1("./genomes/09.fa.txt")
+    dinucleotides1("./genomes/20.fa.txt")
+    dinucleotides1("./genomes/24.fa.txt")
+    dinucleotides1("./genomes/51.fa.txt")
 #==============================================================================
 #     print(writeintofile("./genomes/03.fa.txt"))
 #==============================================================================
 #==============================================================================
-#     print(orfsreverse("./genomes/03.fa.txt"))
+#     orfsreverse("./genomes/03.fa.txt")
 #==============================================================================
-    distancematrixtool("./genomes/03.fa.txt", "./genomes/09.fa.txt", "./genomes/20.fa.txt", "./genomes/24.fa.txt", "./genomes/51.fa.txt")
+#==============================================================================
+#     distancematrixtool("./genomes/03.fa.txt", "./genomes/09.fa.txt", "./genomes/20.fa.txt", "./genomes/24.fa.txt", "./genomes/51.fa.txt")
+#==============================================================================
