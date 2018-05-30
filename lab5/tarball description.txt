@@ -1,5 +1,0 @@
-out_number(a) and (b) files with vector of genes positions
-longrandomseqsA - multi FASTA file
-grimmin -GRIMM input file 
-distance.grim - GRIMM output
-treegood - species tree
