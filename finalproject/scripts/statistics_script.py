@@ -30,9 +30,9 @@ def dinucleotides(filename):
     listofdi = ["AG", "AA", "AC", "AT","CG", "CA", "CC", "CT","GG", "GA", "GC", "GT", "TG", "TA", "TC", "TT"]
     listoffreq = []
     for i in listofdi:
-        #print("{} content is {}".format(i , seq.count(i)/(len(seq) - 1)))
-        listoffreq.append((seq.count(i)/(len(seq) - 1 - 2*seq.count("N"))*100))
+        listoffreq.append((seq.count(i)/(len(seq) - ((2*seq.count("N")) - seq.count("NN")) - 1 )*100))
     return listoffreq
+
 def listorf(filename):
     with open(filename, "r") as f:
         totallen = 0
@@ -138,4 +138,7 @@ if __name__ == "__main__":
 # =============================================================================
 #     plotDi("../results/orfs_51")
 # =============================================================================
-    plotAA("../results/orfs_51")
+# =============================================================================
+#     plotAA("../results/orfs_51")
+# =============================================================================
+    print(dinucleotides("../../genomes/03.fa.txt"))
