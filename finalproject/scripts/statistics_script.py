@@ -30,10 +30,16 @@ def dinucleotides(filename):
     listofdi = ["AG", "AA", "AC", "AT","CG", "CA", "CC", "CT","GG", "GA", "GC", "GT", "TG", "TA", "TC", "TT"]
     listoffreq = []
     for i in listofdi:
+        #((2*seq.count("N")) - seq.count("NN")) - if we have N in sequence it takes two nucleotides - XN and NX thats why its doubled
+        #When two Ns are in row "NN" each of them is taking away just one nucleotide whats why we substract count of NN
+        #- 1 at the end because there is always one dinucleotide less compared to nr of nucleotides
         listoffreq.append((seq.count(i)/(len(seq) - ((2*seq.count("N")) - seq.count("NN")) - 1 )*100))
     return listoffreq
 
 def listorf(filename):
+    """
+    helper function for one below 
+    """
     with open(filename, "r") as f:
         totallen = 0
         list_of_orfs = []
