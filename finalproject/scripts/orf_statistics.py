@@ -1,6 +1,9 @@
 from Bio import Seq
 
 def Readfiles(filename1, filename2):
+    """
+    open files and store information in correct feasable for next functtions
+    """
     with open(filename1, "r") as f:
         orf_list1 = []
         for line in f:
@@ -20,6 +23,9 @@ def Readfiles(filename1, filename2):
     return orf_list1, orf_list2
 
 def TP(filename1, filename2):
+    """
+    returns number of true positives 
+    """
     my = Readfiles(filename1, filename2)[0]
     prog = Readfiles(filename1, filename2)[1]
     TP = 0
@@ -28,6 +34,9 @@ def TP(filename1, filename2):
             TP += 1
     return TP
 def FP(filename1, filename2):
+    """
+    returns number of false positives
+    """
     my = Readfiles(filename1, filename2)[0]
     prog = Readfiles(filename1, filename2)[1]
     FP = 0
@@ -43,18 +52,28 @@ def FN(filename1, filename2):
         if i not in my:
             FN += 1
     return FN
+    """
+    returns number of false negatives
+    """
 def numberorfs(filename1, filename2, i):
+    """
+    prints number of predicted orfs for given genome
+    """
     print("nr of orfs predicted for {} = {}".format(i, (len(Readfiles(filename1, filename2)[0]))))
     
 def F1(filename1, filename2):
+    """
+    takes values for true positives, false positives and false negatives and calculate f1 score
+    """
     precision=float(TP(filename1, filename2))/(TP(filename1, filename2)+FP(filename1, filename2))
     recall=float(TP(filename1, filename2))/(TP(filename1, filename2)+FN(filename1, filename2))
     return 2*((precision*recall)/(precision+recall))
+### easy way to call all the genomes at once.
+list_names = ["03", "09", "20", "24", "51"]
+for i in list_names:
+    numberorfs("../results/orfs_{}".format(i), "../../lab2/{}.fa.txt.pfa".format(i), i)
+    print("F1 for {} is {}".format(i, F1("../results/orfs_{}".format(i), "../../lab2/{}.fa.txt.pfa".format(i))))
 # =============================================================================
-# list_names = ["03", "09", "20", "24", "51"]
-# for i in list_names:
-#     numberorfs("orfs_{}".format(i), "./lab2/{}.fa.txt.pfa".format(i), i)
-#     print("F1 for {} is {}".format(i, F1("orfs_{}".format(i), "./lab2/{}.fa.txt.pfa".format(i))))
+# if __name__ == "__main__":
+#     Readfiles("writefile", "./lab2/03.fa.txt.pfa")
 # =============================================================================
-if __name__ == "__main__":
-    Readfiles("writefile", "./lab2/03.fa.txt.pfa")

@@ -2,6 +2,10 @@ from Bio import Seq
 import matplotlib.pyplot as plt
 
 def tostring(filename):
+    """
+    input: genome file
+    output: string - seq - whole genome as one string 
+    """
     with open(filename, "r") as f:
         seq = ""
         for line in f:
@@ -10,12 +14,18 @@ def tostring(filename):
     return seq
     
 def GC(filename):
+    """
+    counts number of Gs and Cs in genome and prints GC content in precentage format (odd_nucleotides - N excluded from total lenght of sequence)
+    """
     seq = tostring(filename)
     gc_count = seq.count("G") + seq.count("C")
     odd_nucl = seq.count("N")
     print(gc_count/(len(seq) - odd_nucl) * 100)
     
 def dinucleotides(filename):
+    """
+    for list of all possible nucleotides return their frequency in percent value
+    """
     seq = tostring(filename)
     listofdi = ["AG", "AA", "AC", "AT","CG", "CA", "CC", "CT","GG", "GA", "GC", "GT", "TG", "TA", "TC", "TT"]
     listoffreq = []
@@ -34,11 +44,15 @@ def listorf(filename):
         return list_of_orfs, totallen
                 
 def aminoacids(filename):
+    """
+    returns dictionary with frequency of aminoacids for given organism
+    """
     orfs = listorf(filename)[0]
     amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
     AAfreqdict = {}
     for orf in orfs:
         for i in list(amino_acids):
+            #method to be allowed to add value even if key is not yet present in dictionary
             try:
                 AAfreqdict[i] += orf.count("{}".format(i))  
             except KeyError:
@@ -48,6 +62,9 @@ def aminoacids(filename):
     return AAfreqdict
     
 def diaminoacids(filename):
+    """
+    same as above but for all possible dinucleotides
+    """
     amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
     listodi = []
     for i in amino_acids:
@@ -62,6 +79,7 @@ def diaminoacids(filename):
             except KeyError:
                 AAfreqdict[i] = orf.count("{}".format(i))
     for i in listodi:
+        #printing frequency for each diaminoacid
         print("freq of {} is {}".format(i, (AAfreqdict[i]) / listorf(filename)[1]))
     
 def dinucleotides1(filename):
@@ -71,6 +89,9 @@ def dinucleotides1(filename):
                   list1[10],list1[11],list1[12],list1[13],list1[14],list1[15]))
 
 def dinuctodict(filename):
+    """
+    takes dinucleotides from dinucleotides function and store them in dictionary for easier plotting
+    """
     listofdi = ["AG", "AA", "AC", "AT","CG", "CA", "CC", "CT","GG", "GA", "GC", "GT", "TG", "TA", "TC", "TT"]
     freq = dinucleotides(filename)
     dinudict = {}
@@ -79,6 +100,9 @@ def dinuctodict(filename):
     return dinudict
 
 def nucleotide(filename):
+    """
+    count nucleotides frequency
+    """
     seq = tostring(filename)
     T = seq.count("T") / len(seq)
     C = seq.count("C") / len(seq)
@@ -87,22 +111,31 @@ def nucleotide(filename):
     print("T{}C{}G{}A{}".format(T,C,G,A))
 
 def plotDi(filename):
+    """
+    plots dinucleotide frequency
+    """
     Didict = dinuctodict(filename)
     plt.xlabel('dinucleotide symbol')
     plt.ylabel('dinucleotide frequency in %')
-    plt.title('name of organism')
+    plt.title("Spiribacter curvatus")
     plt.bar(range(len(Didict)), list(Didict.values()), align='center')
     plt.xticks(range(len(Didict)), list(Didict.keys()))
     plt.plot()
     
 def plotAA(filename):
+    """
+    plots aminoacid frequency
+    """
     plt.xlabel('Aminoacid symbol')
     plt.ylabel('Aminoacid frequency in %')
-    plt.title('name of organism')
+    plt.title("Spiribacter curvatus")
     AA = aminoacids(filename)
     plt.bar(range(len(AA)), list(AA.values()), align='center')
     plt.xticks(range(len(AA)), list(AA.keys()))
     plt.plot()
-    
+
 if __name__ == "__main__":
-    plotAA("../results/orfs_03")
+# =============================================================================
+#     plotDi("../results/orfs_51")
+# =============================================================================
+    plotAA("../results/orfs_51")
